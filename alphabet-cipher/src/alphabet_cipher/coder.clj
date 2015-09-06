@@ -33,6 +33,23 @@
           (- 123 (int offset))
           97)))))
 
+(defn replace? [s1 s2]
+  (loop [i 0]
+    (if (< i (count s1))
+      (if (= (getr s1 i) (getr s2 i))
+        (recur (inc i))
+        false)
+      true)))
+      
+(defn shortest [s]
+  (loop [i 1]
+      (let [tmp (apply str (take i s))]
+      (if (< i (count s))
+        (if (replace? s tmp)
+          (str tmp)
+          (recur (inc i))        
+        )))))
+
 (defn algo [func keyword message]
   (loop [i 0 m ""]
       (let [msg (func
@@ -49,4 +66,4 @@
   (algo rev-substitute keyword message))
 
 (defn decypher [cypher message]
-  (decode message cypher))
+  (shortest (decode message cypher)))
