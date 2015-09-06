@@ -33,27 +33,20 @@
           (- 123 (int offset))
           97)))))
 
-(defn encode [keyword message]
-    (loop [i 0 m ""]
-      (let [msg (substitute
+(defn algo [func keyword message]
+  (loop [i 0 m ""]
+      (let [msg (func
         (get (char-array message) i)
         (getr (char-array keyword) i))]
       (if (< i (count message))
         (recur (inc i) (str m msg))
         (str m)))))
+
+(defn encode [keyword message]
+  (algo substitute keyword message))
 
 (defn decode [keyword message]
-  (loop [i 0 m ""]
-      (let [msg (rev-substitute
-        (get (char-array message) i)
-        (getr (char-array keyword) i))]
-      (if (< i (count message))
-        (recur (inc i) (str m msg))
-        (str m)))))
+  (algo rev-substitute keyword message))
 
 (defn decypher [cypher message]
-  "decypherme")
-
-
-
-
+  (decode message cypher))
