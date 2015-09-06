@@ -13,10 +13,19 @@
   (str(char x)))
 
 (defn substitute [chr offset]
-  (convert (ascii (+ (int chr) (- (int offset) 97)))))
+  (convert
+    (ascii
+      (+
+        (int chr)
+        (- (int offset) 97)))))
 
 (defn rev-substitute [chr offset]
-  (convert (ascii (+ (- (int chr) 97) (- 123 (int offset)) 97))))
+  (convert
+    (ascii
+      (+
+        (- (int chr) 97)
+        (- 123 (int offset))
+        97))))
 
 (defn ascii "get ascii code from ascii +- offset"
   [a] (if (< a 123)
